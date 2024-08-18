@@ -10,7 +10,14 @@
             var task2 = Task.Run(() => DoWorkAsync(2, 2000)); // Task that takes 2 seconds
             var task3 = Task.Run(() => DoWorkAsync(3, 1000)); // Task that takes 1 second
 
-            // Wait for all tasks to complete
+            // Main thread doing work while waiting for tasks to complete
+            for (int i = 0; i < 5; i++)
+            {
+                await Task.Delay(1000);
+                Console.WriteLine("main thread is working");
+            }
+
+            // Now wait for all tasks to complete
             var results = await Task.WhenAll(task1, task2, task3);
 
             Console.WriteLine("All tasks completed:");
